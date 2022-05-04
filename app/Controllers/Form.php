@@ -13,15 +13,21 @@ class Form extends Controller{
             $rules = [
             'email' => 'required|valid_email',
             'miarchivo' => [
-                'rules' => 'uploaded[miarchivo]|max_size[miarchivo, 50]|ext_in[miarchivo,png]', //max 50 KB
+                //uploaded no permitirá que el campo se envíe vacío
+                //el tamaño se especifica en KB. max_dims define un ancho y alto predeterminado
+                //'rules' => 'uploaded[miarchivo]|max_size[miarchivo, 200]|ext_in[miarchivo,jpg,png]|max_dims[miarchivo,100,50]|is_image[miarchivo]',
+                'rules' => 'uploaded[miarchivo]|max_size[miarchivo, 200]',
                 'label' => 'El archivo'
                 ]
             ];
 
         if ($this->validate($rules)){
             $archivo = $this->request->getFile('miarchivo');
-            echo $archivo->getName();
-            exit();
+           /* echo $archivo->getName();
+            exit(); */
+            if($archivo->isValid() && !$archivo->hasMoved()){
+                $archivo->move('./uploads/images', $archivo->getRandomName());
+            }
 
             return redirect()->to('/form/exitoso');
         } else {
