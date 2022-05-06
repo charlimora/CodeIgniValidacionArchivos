@@ -19,10 +19,15 @@
                 <label for="email">Text</label>
                 <input id="email" class="form-control" type="text" name="email">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="miarchivo">Cargue una imagen</label>
                 <br>
                 <input id="miarchivo" type="file" name="miarchivo">
+            </div> -->
+            <div class="form-group">
+                <label for="miarchivo">Cargue una imagen</label>
+                <br>
+                <input id="miarchivo" type="file" multiple name="archivo[]">
             </div>
             <?php
                 echo '<pre>';
